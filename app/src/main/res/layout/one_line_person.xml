@@ -18,52 +18,47 @@
         android:background="?android:attr/colorActivatedHighlight"
         android:orientation="vertical">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:background="#E5E5E5"
-                tools:context=".MainActivity">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E5E5E5"
+            tools:context=".MainActivity">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/iw_profilePicture"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="8dp"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/iw_profilePicture"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@drawable/mountain"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_personName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="PersonName"
+                android:textSize="24dp"
+                app:layout_constraintStart_toEndOf="@+id/iw_profilePicture"
+                app:layout_constraintTop_toTopOf="@+id/iw_profilePicture" />
 
-                <TextView
-                    android:id="@+id/tv_personName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="PersonName"
-                    android:textSize="24dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/iw_profilePicture"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/tv_phoneNumber"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:inputType="text"
+                android:text="PhoneNumber"
+                android:textSize="24dp"
+                android:visibility="visible"
+                app:layout_constraintStart_toStartOf="@+id/tv_personName"
+                app:layout_constraintTop_toBottomOf="@+id/tv_personName" />
 
-                <TextView
-                    android:id="@+id/tv_phoneNumber"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:inputType="text"
-                    android:text="PhoneNumber"
-                    android:textSize="24dp"
-                    android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tv_personName"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <!--    </RelativeLayout>-->
-            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

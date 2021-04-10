@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="Name:"
+        android:text="@string/name"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_save" />
@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Puhelin:"
+        android:text="@string/phone"
         android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
@@ -111,6 +111,7 @@
         android:layout_marginTop="16dp"
         android:adjustViewBounds="true"
         android:contentDescription="ProfilePicture"
+        app:layout_constraintBottom_toTopOf="@+id/btnCall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber"
@@ -151,7 +152,7 @@
     <Button
         android:id="@+id/btnCall"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_marginBottom="16dp"
         android:text="Call"
         android:textSize="36sp"
