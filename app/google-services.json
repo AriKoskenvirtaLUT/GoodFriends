@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "744566943223",
+    "project_id": "goodfriends-65cd9",
+    "storage_bucket": "goodfriends-65cd9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:744566943223:android:8ab782d3d88a1d11a392f2",
+        "android_client_info": {
+          "package_name": "com.example.goodfriends"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "744566943223-a8k09fajvvqjtdpisqpf1ndjknelbnki.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBIbfFri_4QXYwSex27IKtK7p8sohdrKNs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "744566943223-a8k09fajvvqjtdpisqpf1ndjknelbnki.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
