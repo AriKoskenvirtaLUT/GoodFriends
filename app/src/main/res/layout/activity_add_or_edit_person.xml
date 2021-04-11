@@ -44,15 +44,15 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="164dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="595dp"
         android:text="Picture URL:"
         android:textSize="30sp"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintBottom_toTopOf="@+id/btnCall"
+        app:layout_constraintStart_toEndOf="@+id/iw_profilePicture"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_id"
@@ -63,7 +63,7 @@
         android:inputType="text"
         android:text="0"
         android:textSize="30sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="@+id/textView" />
 
@@ -108,14 +108,14 @@
         android:id="@+id/iw_profilePicture"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:adjustViewBounds="true"
         android:contentDescription="ProfilePicture"
         app:layout_constraintBottom_toTopOf="@+id/btnCall"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber"
-        app:srcCompat="@drawable/mountain"
+        app:layout_constraintTop_toBottomOf="@+id/btn_removeProfilePicture"
+        app:srcCompat="@drawable/circle"
         tools:srcCompat="@tools:sample/avatars" />
 
 
@@ -158,5 +158,25 @@
         android:textSize="36sp"
         android:onClick="makePhoneCall"
         app:layout_constraintBottom_toBottomOf="parent" />
+
+    <Button
+        android:id="@+id/btn_removeProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Remove Picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
+
+    <Button
+        android:id="@+id/btn_chooseProfilePicture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Choose Picture"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/et_phoneNumber" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

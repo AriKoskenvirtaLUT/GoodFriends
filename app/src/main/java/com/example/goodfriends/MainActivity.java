@@ -80,21 +80,6 @@ public class MainActivity extends AppCompatActivity {
                             .into(holder.iw_profilePicture);
                 }
 
-
-
-                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        //snaphot from firestore has all data from based to query
-                        DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-                        String uid = snapshot.getId();
-
-                        Intent intent = new Intent(MainActivity.this, AddOrEditPerson.class);
-                        intent.putExtra("uid", uid);
-
-                        MainActivity.this.startActivity(intent);
-                    }
-                });
             }
         };
 
@@ -120,8 +105,9 @@ public class MainActivity extends AppCompatActivity {
             tv_phoneNumber = oneLinePersonBinding.tvPhoneNumber;
             iw_profilePicture = oneLinePersonBinding.iwProfilePicture;
 
-            /*
-            this.oneLinePersonBinding.setOnClickListener(new View.OnClickListener() {
+
+
+            this.oneLinePersonBinding.oneLinePersonLayout.setOnClickListener(new View.OnClickListener() {
                   @Override
                   public void onClick(View v) {
                       //StorageReference storageReference;
@@ -138,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
               }
             );
 
-             */
+
 
         }
     }

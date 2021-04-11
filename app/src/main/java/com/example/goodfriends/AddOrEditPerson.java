@@ -33,19 +33,17 @@ import java.util.Map;
 
 public class AddOrEditPerson extends AppCompatActivity {
 
-    public ImageView iw_profilePicture;
-    public Uri imageURi;
-
-    private FirebaseStorage storage;
-    private StorageReference storageReference;
-
     //variable is used in debugging
     private static final String TAG = "Edit";
 
-    //components
+    private StorageReference storageReference;
+
+
+    //variables for layout components
     private TextView tv_id;
     private EditText et_personName, et_phoneNumber, et_profilePicture;
-    private Button btn_save, btn_cancel, btn_delete;
+    public ImageView iw_profilePicture;
+    public Uri imageURi;
 
     String id;
     Person person = null;
@@ -65,14 +63,9 @@ public class AddOrEditPerson extends AppCompatActivity {
         et_profilePicture =  findViewById(R.id.et_profilePicture);
         iw_profilePicture =  findViewById(R.id.iw_profilePicture);
 
-        iw_profilePicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                choosePicture();
-            }
-        });
 
-        storage = FirebaseStorage.getInstance();
+        //variables for firebase
+        FirebaseStorage storage = FirebaseStorage.getInstance();
         storageReference = storage.getReference();
 
         //id is like a parameter for person. If it is not null then user has selected current person, if null then user have pressed new button in menu
@@ -94,10 +87,13 @@ public class AddOrEditPerson extends AppCompatActivity {
                             et_profilePicture.setText(person.getProfilePicture());
 
                             //glide is helper to get image from database to imageview
-                            Glide
+                            if (person.getProfilePicture().toString()!="") {
+                                Glide
                                     .with(getApplicationContext())
                                     .load(person.getProfilePicture().toString())
+                                    .placeholder(R.drawable.ic_baseline_photo_library_24)
                                     .into(iw_profilePicture);
+                            }
 
                         }
                     });
@@ -105,7 +101,7 @@ public class AddOrEditPerson extends AppCompatActivity {
         }
 
 
-        btn_save = findViewById(R.id.btn_save);
+        Button btn_save = findViewById(R.id.btn_save);
         btn_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -123,8 +119,7 @@ public class AddOrEditPerson extends AppCompatActivity {
             }
         });
 
-
-        btn_delete = findViewById(R.id.btn_delete);
+        Button btn_delete = findViewById(R.id.btn_delete);
         btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,13 +129,13 @@ public class AddOrEditPerson extends AppCompatActivity {
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
-                                Log.d(TAG, "Friend has been deleted!");
+                                Log.d(TAG, "Friend has been removed successfully!");
                             }
                         })
                         .addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error, Friend has not been deleted!", e);
+                                Log.w(TAG, "Error removing friend!", e);
                             }
                         });
 
@@ -150,7 +145,9 @@ public class AddOrEditPerson extends AppCompatActivity {
         });
 
 
-        btn_cancel = findViewById(R.id.btn_cancel);
+
+
+        Button btn_cancel = findViewById(R.id.btn_cancel);
         btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -159,6 +156,38 @@ public class AddOrEditPerson extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        Button btn_chooseProfilePicture = findViewById(R.id.btn_chooseProfilePicture);
+        btn_chooseProfilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                choosePicture();
+            }
+        });
+
+
+        Button btn_removeProfilePicture = findViewById(R.id.btn_removeProfilePicture);
+        btn_removeProfilePicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String filename =  et_personName.getText().toString();
+
+                deleteFileFromFirebase(filename);
+
+                et_profilePicture.setText("");
+
+                Map<String, Object> person = new HashMap<>();
+                person.put("personName", et_personName.getText().toString());
+                person.put("phoneNumber", et_phoneNumber.getText().toString());
+                person.put("profilePicture", et_profilePicture.getText().toString());
+
+                //updatePerson ( person, id);
+                iw_profilePicture.setImageResource(0);
+
+            }
+        });
+
+
     }
 
     private void choosePicture() {
@@ -167,6 +196,25 @@ public class AddOrEditPerson extends AppCompatActivity {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, 1);
     }
+
+    private void deleteFileFromFirebase(String filename) {
+        // Create a storage reference from our app
+        StorageReference storageRef = storageReference.child("ProfilePictures/"+ filename );
+
+
+        // Delete the file
+        storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                // File deleted successfully
+                Toast.makeText(getApplicationContext(), "Profile picture deleted " + filename , Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Toast.makeText(getApplicationContext(), "Error Profile picture deleting " + filename , Toast.LENGTH_SHORT).show();
+            }
+        });    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -186,7 +234,6 @@ public class AddOrEditPerson extends AppCompatActivity {
 
     private void uploadPicture(String filename) {
         StorageReference storageRef = storageReference.child("ProfilePictures/"+ filename );
-
         storageRef.putFile(imageURi)
             .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
@@ -210,6 +257,7 @@ public class AddOrEditPerson extends AppCompatActivity {
                 }
             });
     }
+
 
     private void updatePerson(Map<String, Object> person, String id) {
 
@@ -257,16 +305,15 @@ public class AddOrEditPerson extends AppCompatActivity {
     //remember to set permission in AndroidManifest.xml "android.permission.CALL_PHONE"
     //and also in physical phone
     public void makePhoneCall(View view) {
-        //String number = phonenumber;
-        String dial = "tel:" + "0407308732";
-
-        dial = "tel:" + et_phoneNumber.getText().toString();
+        String dial = "tel:" + et_phoneNumber.getText().toString();
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse(dial));
         startActivity(intent);
 
         Toast.makeText(this, "Call to " + et_personName.getText().toString(), Toast.LENGTH_SHORT).show();
-
     }
+
 }
+
+
 
