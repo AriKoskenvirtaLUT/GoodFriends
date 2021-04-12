@@ -11,6 +11,9 @@ Info to use program:
 4.	Save. 
 5.	If phonenumber exists, you van call your friend by clicking “Call” button
 
+You can install program to your android device with app-debug.apk
+If you want to make calls, you have to set permission in your phone.
+
 
 
 
